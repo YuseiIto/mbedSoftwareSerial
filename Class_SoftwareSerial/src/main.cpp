@@ -1,48 +1,23 @@
 #include <mbed.h>
-#define UART_DELAY 97//101Max,92 Min(104 in theory)
+#include "SoftwareSerial.h"
 
 Serial pc(USBTX,USBRX);
-DigitalOut RX(D4);
-DigitalOut TX(D5);
+SoftwareSerial ss(D5,D4);
 
 int main() {
 
   // put your setup code here, to run once:
-  TX=1;
   pc.baud(230400);
   pc.printf("Boot");
 
+ss.baud(9600);
+
   while(1) {
-      put your main code here, to run repeatedly:
-      TX=0;//START
-      wait_us(UART_DELAY);
+      //put your main code here, to run repeatedly:
+  
+ss.write('A');
+wait(1);
 
-      TX=1;//DB0
-      wait_us(UART_DELAY);
-
-      TX=0;//DB1
-      wait_us(UART_DELAY);
-
-      TX=0;//DB2
-      wait_us(UART_DELAY);
-
-      TX=0;//DB3
-      wait_us(UART_DELAY);
-
-      TX=0;//DB4
-      wait_us(UART_DELAY);
-
-      TX=0;//DB5
-      wait_us(UART_DELAY);
-
-      TX=1;//DB6
-      wait_us(UART_DELAY);
-
-      TX=0;//DB7
-      wait_us(UART_DELAY);
-
-     TX=1;//Stop
-    wait(1);
-
+pc.printf("pin:%d\tuart:%d\t\n",ss.pin_delay,ss.uart_delay);
   }
 }
